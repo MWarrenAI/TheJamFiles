@@ -1,12 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent (typeof(Rigidbody2D))]
+[RequireComponent (typeof(PlayerLightManager))]
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D m_RigidBody;
+    private PlayerLightManager m_PlayerLightManager;
 
+
+    [Header("Movement")]
     [SerializeField] private float m_Acceleration;
     [SerializeField] private float m_Deceleration;
     [SerializeField] private float m_MovementSpeed;
@@ -16,25 +21,40 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_FloorCheckRange;
     [SerializeField] private Transform m_FloorCheckTransform;
 
+    [Header("Lighting Management")]
+    [SerializeField] private float m_SwitchLightCooldown;
+    [SerializeField] private float m_LightScale;
+
+    [Header("Camera Movement")]
+    [SerializeField] private float m_CameraFollowSmoothness;
+
+    
+
     private InputAction m_MoveAction;
     private InputAction m_JumpAction;
+    private InputAction m_SwitchAction;
     
     private bool m_HoldingDown = false;
     private bool m_NeedToJump = false;
 
     private float m_LastJumpTime = 0;
+    private float m_LastSwitchTime = 0;
 
     void Start()
     {
         m_RigidBody = GetComponent<Rigidbody2D>();
+        m_PlayerLightManager = GetComponent<PlayerLightManager>();
 
         m_MoveAction = InputSystem.actions.FindAction("Move");
         m_JumpAction = InputSystem.actions.FindAction("Jump");
+        m_SwitchAction = InputSystem.actions.FindAction("Interact");
     }
 
     private void Update()
     {
         DetectJump();
+        HandleLightSystem();
+        CameraFollowPlayer();
     }
 
     void FixedUpdate()
@@ -79,5 +99,25 @@ public class PlayerController : MonoBehaviour
                 m_RigidBody.linearVelocityY -= m_DownwardsJumpForce;
             }
         }
+    }
+
+    void HandleLightSystem()
+    {
+        if (m_SwitchAction.IsPressed() && Time.time > m_LastSwitchTime + m_SwitchLightCooldown)
+        {
+            if (m_PlayerLightManager.Lit())
+                m_PlayerLightManager.Darken();
+            else
+                m_PlayerLightManager.Lighten(m_LightScale);
+            m_LastSwitchTime = Time.time;
+        }
+    }
+
+    void CameraFollowPlayer()
+    {
+        Transform camera = Camera.main.transform;
+        Vector2 newCameraPosition = new Vector2(transform.position.x - camera.position.x,
+            transform.position.y - camera.position.y) * m_CameraFollowSmoothness;
+        camera.position += new Vector3(newCameraPosition.x, newCameraPosition.y, 0);
     }
 }
