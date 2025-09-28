@@ -246,7 +246,7 @@ MonoBehaviour:
   - {fileID: 932857827639756771}
   m_SwitchLightCooldown: 0.2
   m_LightScale: 10
-  m_CameraOffset: {x: 0, y: 2, z: -10}
+  m_CameraOffset: {x: 0, y: 3.5, z: -10}
   m_CameraFollowSmoothness: 0.1
 --- !u!114 &5650715157200930316
 MonoBehaviour:
