@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 6105753870614071604, guid: ba855663ecfc8f747bb41bc33d97eb35, type: 3}
+  m_Sprite: {fileID: 2709032492602936571, guid: faba8124d03c6ad428f7994f3d37bdce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -343,7 +343,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7141214795815122218, guid: 555fbef51d993d64690236f8ba2b9cf4, type: 3}
+  m_Sprite: {fileID: -5240815813007140509, guid: 4158383b0b6676b44bb46ac4ada5a252, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -363,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3872786842943420254}
-  - component: {fileID: 1761264912623930976}
+  - component: {fileID: 5908000954595909091}
   m_Layer: 0
   m_Name: Sprite Mask
   m_TagString: Untagged
@@ -386,7 +386,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1234528429490004231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!331 &1761264912623930976
+--- !u!331 &5908000954595909091
 SpriteMask:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -430,7 +430,7 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 83664050022404833, guid: 0e5e7f86df283684dbc7399bded5c611, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
