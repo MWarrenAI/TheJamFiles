@@ -912,13 +912,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7893987886958982054, guid: af3fdeb1c9f90c14ca0d959b1eaa0ed5, type: 3}
-      propertyPath: m_CameraTransform
-      value: 
-      objectReference: {fileID: 519420032}
+    - target: {fileID: 5650715157200930316, guid: af3fdeb1c9f90c14ca0d959b1eaa0ed5, type: 3}
+      propertyPath: m_SinPatternRate
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650715157200930316, guid: af3fdeb1c9f90c14ca0d959b1eaa0ed5, type: 3}
+      propertyPath: m_SinPatternMagnitude
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7893987886958982054, guid: af3fdeb1c9f90c14ca0d959b1eaa0ed5, type: 3}
       propertyPath: m_CameraFollowSmoothness
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

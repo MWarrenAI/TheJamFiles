@@ -1,4 +1,5 @@
-using Unity.VisualScripting;
+using NUnit.Framework;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,12 +21,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_DownwardsJumpForce;
     [SerializeField] private float m_FloorCheckRange;
     [SerializeField] private Transform m_FloorCheckTransform;
+    [SerializeField] private Transform[] m_PlayerSprites;
 
     [Header("Lighting Management")]
     [SerializeField] private float m_SwitchLightCooldown;
     [SerializeField] private float m_LightScale;
 
     [Header("Camera Movement")]
+    [SerializeField] private Vector3 m_CameraOffset;
     [SerializeField] private float m_CameraFollowSmoothness;
 
     
@@ -40,10 +43,14 @@ public class PlayerController : MonoBehaviour
     private float m_LastJumpTime = 0;
     private float m_LastSwitchTime = 0;
 
+    private Vector2 m_DefaultSpriteScale = Vector2.zero;
+
     void Start()
     {
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_PlayerLightManager = GetComponent<PlayerLightManager>();
+
+        m_DefaultSpriteScale = m_PlayerSprites[0].localScale;
 
         m_MoveAction = InputSystem.actions.FindAction("Move");
         m_JumpAction = InputSystem.actions.FindAction("Jump");
@@ -54,7 +61,6 @@ public class PlayerController : MonoBehaviour
     {
         DetectJump();
         HandleLightSystem();
-        CameraFollowPlayer();
     }
 
     void FixedUpdate()
@@ -62,15 +68,24 @@ public class PlayerController : MonoBehaviour
         HandleLeftRight();
         HandleJump();
         HandleDown();
+        CameraFollowPlayer();
     }
 
     void HandleLeftRight()
     {
         m_RigidBody.linearVelocityX += m_MoveAction.ReadValue<Vector2>().x * m_Acceleration;
         m_RigidBody.linearVelocityX = Mathf.Clamp(m_RigidBody.linearVelocityX, -m_MovementSpeed, m_MovementSpeed);
+
         if (m_MoveAction.ReadValue<Vector2>().x == 0)
             m_RigidBody.linearVelocityX *= m_Deceleration;
-        m_RigidBody.SetRotation(m_RigidBody.linearVelocityX);
+
+        for(int i = 0; i < m_PlayerSprites.Length; i++)
+        {
+            if (m_RigidBody.linearVelocity.x > 0)
+                m_PlayerSprites[i].localScale = m_DefaultSpriteScale;
+            else if (m_RigidBody.linearVelocity.x < 0)
+                m_PlayerSprites[i].localScale = new Vector2(-m_DefaultSpriteScale.x, m_DefaultSpriteScale.y);
+        }
     }
 
     void DetectJump()
@@ -116,8 +131,8 @@ public class PlayerController : MonoBehaviour
     void CameraFollowPlayer()
     {
         Transform camera = Camera.main.transform;
-        Vector2 newCameraPosition = new Vector2(transform.position.x - camera.position.x,
-            transform.position.y - camera.position.y) * m_CameraFollowSmoothness;
-        camera.position += new Vector3(newCameraPosition.x, newCameraPosition.y, 0);
+        Vector3 targetPosition = transform.position + m_CameraOffset;
+        Vector3 newCameraPosition = (targetPosition - camera.position) * m_CameraFollowSmoothness;
+        camera.position += new Vector3(newCameraPosition.x, newCameraPosition.y, newCameraPosition.z);
     }
 }
