@@ -40,10 +40,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_WeakestJump;
     [SerializeField] private float m_RateOfSlowJump;
 
+    [Header("Interactions")]
+    [SerializeField] private float m_InteractionRange;
+    [SerializeField] private Transform m_InteractionCheck;
+
 
     private InputAction m_MoveAction;
     private InputAction m_JumpAction;
     private InputAction m_SwitchAction;
+    private InputAction m_InteractionAction;
     
     private bool m_HoldingDown = false;
     private bool m_NeedToJump = false;
@@ -66,12 +71,14 @@ public class PlayerController : MonoBehaviour
         m_MoveAction = InputSystem.actions.FindAction("Move");
         m_JumpAction = InputSystem.actions.FindAction("Jump");
         m_SwitchAction = InputSystem.actions.FindAction("Interact");
+        m_InteractionAction = InputSystem.actions.FindAction("Attack");
     }
 
     private void Update()
     {
         DetectJump();
         HandleLightSystem();
+        HandleInteractions();
     }
 
     void FixedUpdate()
@@ -145,5 +152,26 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPosition = transform.position + m_CameraOffset;
         Vector3 newCameraPosition = (targetPosition - camera.position) * m_CameraFollowSmoothness;
         camera.position += new Vector3(newCameraPosition.x, newCameraPosition.y, newCameraPosition.z);
+    }
+
+    void HandleInteractions()
+    {
+        if(m_InteractionAction.WasPressedThisFrame())
+        {
+            Debug.Log("Interaction Attempt");
+            Collider2D coll = Physics2D.OverlapCircle(m_InteractionCheck.position, m_InteractionRange, LayerMask.GetMask("InteractableNPC"));
+            if (coll != null)
+            {
+
+                Debug.Log("Collider Attempt");
+                InteractableNPC interactable = coll.GetComponent<InteractableNPC>();
+                if (interactable != null)
+                {
+
+                    Debug.Log("Interact Attempt");
+                    interactable.Interact();
+                }
+            }
+        }
     }
 }

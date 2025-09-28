@@ -31,8 +31,6 @@ public class InsanityController : MonoBehaviour
             m_Insanity -= m_InsanityDecreaseRate * Time.deltaTime;
         m_Insanity = Mathf.Clamp(m_Insanity, 0, m_MaxInsanity);
 
-        Debug.Log(m_Insanity);
-
         if (m_Volume.profile.TryGet<Vignette>(out var vignette))
         {
             // Scale intensity between 0 and 1 based on insanity
