@@ -81,9 +81,9 @@ public class PlayerController : MonoBehaviour
 
         for(int i = 0; i < m_PlayerSprites.Length; i++)
         {
-            if (m_RigidBody.linearVelocity.x > 0)
+            if (m_RigidBody.linearVelocity.x > 0.1)
                 m_PlayerSprites[i].localScale = m_DefaultSpriteScale;
-            else if (m_RigidBody.linearVelocity.x < 0)
+            else if (m_RigidBody.linearVelocity.x < -0.1)
                 m_PlayerSprites[i].localScale = new Vector2(-m_DefaultSpriteScale.x, m_DefaultSpriteScale.y);
         }
     }

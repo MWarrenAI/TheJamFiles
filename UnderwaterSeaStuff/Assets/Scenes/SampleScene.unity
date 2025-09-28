@@ -1276,6 +1276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7893987886958982054, guid: af3fdeb1c9f90c14ca0d959b1eaa0ed5, type: 3}
+      propertyPath: m_CameraOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
