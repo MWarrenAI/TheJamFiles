@@ -280,8 +280,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93a83c10e4e4824ebd67790ab95b2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxInsanity: 100
   m_InsanityIncreaseRate: 5
   m_InsanityDecreaseRate: 3
+  m_Volume: {fileID: 0}
 --- !u!1 &6621159401212471309
 GameObject:
   m_ObjectHideFlags: 0

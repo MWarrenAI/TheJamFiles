@@ -14,6 +14,7 @@ public class InsanityController : MonoBehaviour
     [SerializeField] private Volume m_Volume;
 
     public float Insanity() { return m_Insanity; }
+    public float MappedInsanity() { return m_Insanity / m_MaxInsanity; }
 
     // state -  true = going insane 
     //          false = sane
@@ -35,7 +36,7 @@ public class InsanityController : MonoBehaviour
         if (m_Volume.profile.TryGet<Vignette>(out var vignette))
         {
             // Scale intensity between 0 and 1 based on insanity
-            vignette.intensity.value = Mathf.Clamp01(m_Insanity / m_MaxInsanity);
+            vignette.intensity.value = Mathf.Clamp01((m_Insanity / m_MaxInsanity) * 0.8f);
         }
     }
 }
