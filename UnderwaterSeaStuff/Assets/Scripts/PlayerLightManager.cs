@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(InsanityController))]
+
 public class PlayerLightManager : MonoBehaviour
 {
     [SerializeField] private Transform m_SpriteMask;
@@ -18,9 +20,12 @@ public class PlayerLightManager : MonoBehaviour
     private float m_TargetLightIntensity;
     private float m_TargetScale;
 
+    private InsanityController m_InsanityController;
+
     private void Start()
     {
         m_OriginalLightIntensity = m_Light.intensity;
+        m_InsanityController = GetComponent<InsanityController>();
         Darken();
     }
 
@@ -45,6 +50,7 @@ public class PlayerLightManager : MonoBehaviour
         m_TargetLightIntensity = 0;
         m_TargetScale = scale;
         m_Lit = true;
+        m_InsanityController.ToggleInsanity(m_Lit);
     }
 
     public void Darken()
@@ -52,5 +58,6 @@ public class PlayerLightManager : MonoBehaviour
         m_TargetLightIntensity = m_OriginalLightIntensity;
         m_TargetScale = 0;
         m_Lit = false;
+        m_InsanityController.ToggleInsanity(m_Lit);
     }
 }
