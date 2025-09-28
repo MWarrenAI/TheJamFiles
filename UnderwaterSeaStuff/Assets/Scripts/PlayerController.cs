@@ -1,15 +1,18 @@
 using NUnit.Framework;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent (typeof(Rigidbody2D))]
-[RequireComponent (typeof(PlayerLightManager))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerLightManager))]
+[RequireComponent(typeof(InsanityController))]
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D m_RigidBody;
     private PlayerLightManager m_PlayerLightManager;
+    private InsanityController m_InsanityController;
 
 
     [Header("Movement")]
@@ -31,7 +34,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 m_CameraOffset;
     [SerializeField] private float m_CameraFollowSmoothness;
 
-    
+    [Header("Insane Movement")]
+    [SerializeField] private float m_SlowestMovementSpeed;
+    [SerializeField] private float m_SlowestAcceleration;
+    [SerializeField] private float m_WeakestJump;
+    [SerializeField] private float m_RateOfSlowJump;
+
 
     private InputAction m_MoveAction;
     private InputAction m_JumpAction;
@@ -45,10 +53,13 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 m_DefaultSpriteScale = Vector2.zero;
 
+
+    
     void Start()
     {
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_PlayerLightManager = GetComponent<PlayerLightManager>();
+        m_InsanityController = GetComponent<InsanityController>();
 
         m_DefaultSpriteScale = m_PlayerSprites[0].localScale;
 
@@ -73,8 +84,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleLeftRight()
     {
-        m_RigidBody.linearVelocityX += m_MoveAction.ReadValue<Vector2>().x * m_Acceleration;
-        m_RigidBody.linearVelocityX = Mathf.Clamp(m_RigidBody.linearVelocityX, -m_MovementSpeed, m_MovementSpeed);
+        m_RigidBody.linearVelocityX += m_MoveAction.ReadValue<Vector2>().x * Mathf.Lerp(m_Acceleration, m_SlowestAcceleration, m_InsanityController.MappedInsanity());
+        m_RigidBody.linearVelocityX = Mathf.Clamp(m_RigidBody.linearVelocityX, -Mathf.Lerp(m_MovementSpeed, m_SlowestMovementSpeed, m_InsanityController.MappedInsanity()) , Mathf.Lerp(m_MovementSpeed, m_SlowestMovementSpeed, m_InsanityController.MappedInsanity()));
 
         if (m_MoveAction.ReadValue<Vector2>().x == 0)
             m_RigidBody.linearVelocityX *= m_Deceleration;
@@ -90,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     void DetectJump()
     {
-        if (m_JumpAction.IsPressed() && m_NeedToJump == false && Time.time > m_LastJumpTime + m_JumpCoolDown)
+        if (m_JumpAction.IsPressed() && m_NeedToJump == false && Time.time > m_LastJumpTime + Mathf.Lerp(m_JumpCoolDown, m_RateOfSlowJump, m_InsanityController.MappedInsanity()))
             m_NeedToJump = true;
         m_HoldingDown = m_MoveAction.ReadValue<Vector2>().y < 0;
     }
@@ -98,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if(m_NeedToJump)
         {
-            m_RigidBody.linearVelocityY = m_JumpForce;
+            m_RigidBody.linearVelocityY = Mathf.Lerp(m_JumpForce, m_WeakestJump, m_InsanityController.MappedInsanity());
             m_NeedToJump = false;
             m_LastJumpTime = Time.time;
         }
