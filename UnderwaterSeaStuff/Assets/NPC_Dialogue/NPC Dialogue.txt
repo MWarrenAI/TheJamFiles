@@ -318,3 +318,140 @@ Ef: Quite the welcome I’m getting…
 
 Ef runs left.
 
+
+Umbra dialogue
+
+Umbra: Firefly? Is it really you?
+
+Ef: I’m… more used to Ef now. But yes.
+
+Umbra: So, my intuition proved true, after all… you were never the type to run with your tail between your legs. What brought you back now, of all times?
+
+Ef: I’m here to set things right. I spent enough time wallowing in guilt. It got boring.
+
+Umbra: I can’t say you ever found your emotions particularly “fun” in the first place.
+
+Ef: So, any reason you saved me from our friend Inklord? He’s not wrong about me.
+
+Umbra: Same reason. The abyss is boring without you.
+
+Ef: Is that all…?
+
+Umbra: Sure it is. That aside, you want access to the queen, right? That won’t happen as long as Inklord is around.
+
+Ef: It’s unusual for them to be this… aggressive. Boisterous, sure, but reasoning with them should be possible…
+
+Umbra: It’s the light. It’s been… changing everyone down here. Inklord has always cared for the queen, but now they’re a paranoid freak over it. They won’t let you back in over their dead body.
+
+Ef: More sneaking then, I suppose… Any help you can offer? Or have you been changed too?
+
+Umbra: When has my word ever let you down?
+
+Ef: More time than I can count on my tentacles.
+
+Umbra: I know of a way in. But you have to prove to me that I can trust you. Last time we saw you, you failed us. Prove to me you won’t fail me again.
+
+Ef: And how do I do that, Bureaucrat of the Saltwater Kingdom?
+
+Umbra: No need for that… Just help me with something. It’s about Ollie.
+
+Ef: That silly guy?
+
+Umbra: Yes. The queen’s condition has… affected him more than me. You’ll realise when you see him. Just help him out a little. I can’t from my position.
+
+Ef: … I’ll see what I can do. I need to see this mission to the end.
+
+Umbra: Of course. You’ll find Ollie over that way. Don’t let me down like before.
+
+Jolly Ollie dialogue
+
+Jolly Ollie: What do you call a fish with no eyes? A fsh!
+
+Ef: I’ve heard that one before, Ollie.
+
+Jolly Ollie: We need a more organised cross-species currency system… When I asked Inklord if I could borrow some money, they said “I can give you five squid”!
+
+Ef: Ollie…
+
+Jolly Ollie: My jokes are so funny, I can’t breathe!
+
+Ef: OLLIE!
+
+Jolly Ollie:… Firefly?
+
+Ef: The one and only.
+
+Jolly Ollie: Apologies for the bad jokes! I just can’t kelp myself!
+
+Ef: (It’s like I’m not here… How can I help him in this state?)
+
+Ef: Maybe some kind of distraction to his senses… That might bring him some clarity!
+
+Cue quest to find Vishi
+
+Vishi: Bet you weren’t expecting to find me again! I didn’t choose the grind life, I’m afraid… it chose me, you see!
+
+Ef: Your timing is… actually impeccable. Ollie loves the smell of amphipods.
+
+Vishi: Eh???
+
+Ef: Don’t worry, you’re not in any danger. He gets fired if he actually eats kingdom denizens… at least, that’s the last I knew.
+
+Vishi: ??????
+
+Ef: Just come with me. I have an assignment for the queen and she’d love for you to participate.
+
+Vishi: Ah! I see! But of course!
+
+Cue revisit to Ollie
+
+Jolly Ollie: So the plankton spoke to the sea ameno… anenom… amem…
+
+Ef: This is getting depressing. Ollie, I brought your favourite smell.
+
+Jolly Ollie: Anano… ah? This smell…! An amphipod hasn’t passed me by since Firefly was still here!
+
+Ef: And here she is.
+
+Jolly Ollie: Firefly?! You brought this amphipod to me?! So I wasn’t hallucinating after all!
+
+Ef: You’ve hallucinated me before?
+
+Jolly Ollie: Many times! But with this smell… only you know how much I love the smell of amphipods! Please, Firefly, you must help us! The queen, she-
+
+Ef: I’m aware. I’m here to save her. If you can keep your clarity for a little longer, I’ll stop this for good. I’ll set things right.
+
+Jolly Ollie: If it’s you asking, Firefly, I can cling on by every sucker available!
+
+Ef: Even from underneath your hat?
+
+Jolly Ollie: ESPECIALLY from underneath my hat!
+
+Ef: I’m glad. Could you, erm…
+
+Vishi: It’s Vishi!
+
+Ef: If you could stay with him, Vishi, I’d greatly appreciate it.
+
+Vishi: I’ll keep him level for a century if it’s for the queen, you’ll see!
+
+
+Final talk with Umbra
+
+Ef: He’s in a much better state, at least for now. He didn’t even seem to know I was exiled.
+
+Umbra: Do you think official matters are the business of court jesters, then?
+
+Ef: Right. That aside, I believe you have a promise to fulfil.
+
+Umbra: But of course. I’ll take you to the palace doors, out of Inklord’s sight.
+
+Ef: I appreciate it. Can I ask just one more thing?
+
+Umbra: I see no reason why you couldn’t.
+
+Ef: All orders from the queen have to authorised by you. The monument construction, the siphonophore buffet… did you really approve of them?
+
+Umbra: …
+
+Ef: I’ll finish this, Umbra. To save the queen, and to save you too.
