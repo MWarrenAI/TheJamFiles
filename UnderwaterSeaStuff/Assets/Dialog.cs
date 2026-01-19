@@ -15,7 +15,18 @@ public class Dialog : MonoBehaviour
     }
     private void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (textComponent.text == lines[index])
+            {
+                NextLine();
+            }
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+            }
+        }
     }
 
     void StartDialog()
@@ -30,6 +41,19 @@ public class Dialog : MonoBehaviour
         {
             textComponent.text += c;
             yield return new WaitForSeconds(txtSpeed);
+        }
+    }
+    void NextLine()
+    {
+        if (index < lines.Length - 1)
+        {
+            index++;
+            textComponent.text = string.Empty;
+            StartCoroutine(TypeLine());
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
