@@ -858,7 +858,8 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
     Standalone: UNITY_TIMELINE
-  additionalCompilerArguments: {}
+  additionalCompilerArguments:
+    Standalone: []
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
