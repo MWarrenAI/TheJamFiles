@@ -567,6 +567,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!1 &115476140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3794377306828381554, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+  m_PrefabInstance: {fileID: 884236617835222482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &115476146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115476140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5304693c8d6b12d42892c010727a4fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1091795052}
+  dialogueText: {fileID: 1364802205}
 --- !u!1 &168527492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,6 +2681,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &1091795052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 24055176863756040, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+  m_PrefabInstance: {fileID: 884236617835222482}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1163024350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,6 +3478,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1364802205 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5760077494263422381, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+  m_PrefabInstance: {fileID: 884236617835222482}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1448475753
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,10 +5476,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6719739427531654463, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+      propertyPath: m_Name
+      value: Text (TMP) Name
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650307047476168257, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+      propertyPath: m_Name
+      value: Text (TMP) Dialogue
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4658763293789589148, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3794377306828381554, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 115476146}
   m_SourcePrefab: {fileID: 100100000, guid: 70155d39601f64440b2a1bbefeb2eca4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
