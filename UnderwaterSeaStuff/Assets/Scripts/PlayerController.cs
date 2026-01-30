@@ -36,7 +36,9 @@ public class PlayerController : MonoBehaviour
     private InputAction m_MoveAction;
     private InputAction m_JumpAction;
     private InputAction m_SwitchAction;
-    
+    public static PlayerController Instance;
+
+    public bool canMove;
     private bool m_HoldingDown = false;
     private bool m_NeedToJump = false;
 
@@ -45,8 +47,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 m_DefaultSpriteScale = Vector2.zero;
 
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
+        canMove = false;
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_PlayerLightManager = GetComponent<PlayerLightManager>();
 
@@ -59,12 +67,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove)
+        {
+            m_NeedToJump = false;
+            m_PlayerLightManager.Darken();
+            return;
+        }    
         DetectJump();
         HandleLightSystem();
     }
 
     void FixedUpdate()
     {
+        if (!canMove)
+        {
+            m_RigidBody.linearVelocityX = 0;
+            m_RigidBody.linearVelocityY = 0;
+            return;
+        }
         HandleLeftRight();
         HandleJump();
         HandleDown();
