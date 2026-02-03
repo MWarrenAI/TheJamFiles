@@ -6,20 +6,52 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour, IInteractable
 {
-    public NPCDialogue dialogueData;
+    [Header("Dialogue Data")]
+    private NPCDialogue currentDialogue;
+    public NPCDialogue dialogueData;      // First interaction data
+    public NPCDialogue ErnieBallData;     // Second interaction data
+    public NPCDialogue noChoiceData;
+
+
     private int activeIndex = 0;
     public GameObject dialoguePanel;
     public TMP_Text dialogueText, nameText;
+    private bool tutorialFinished = false;
 
+    private bool playerInRange;
     private bool isTyping, isDialogueActive;
 
+    [Header("UI References")]
     public GameObject choiceContainer;
     public GameObject ChoicesPrefab;
     public GameObject e_1;
     public GameObject[] movementPrompts;
+    public GameObject Panel;
+    public GameObject keyboardChoiceUI;
+    public TMP_Text TextE;
+    public TMP_Text TextU;
+    public TMP_Text TextD;
+    public TMP_Text TextL;
+    public TMP_Text TextR;
+    public TMP_Text TextSpa;
+    // This list will appear in the NPC Inspector in Unity
+    public DialogueChoice[] choices;
+
+    [System.Serializable]
+    public class DialogueChoice
+    {
+        public int dialogueIndex;
+        public string[] choices; // Labels like "Yes", "No"
+        public int[] nextDialogueIndex; // Where they jump to
+    }
 
     void Start()
     {
+        if (e_1 != null) e_1.SetActive(false);
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
+        playerInRange = false;
+
         if (GameState.shouldStartTutorial)
         {
             GameState.shouldStartTutorial = false;
@@ -27,31 +59,75 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    public bool CanInteract() => !isDialogueActive;
-
-    [System.Obsolete]
-    public void Interact()
+    private void TriggerChoice(int choiceIndex)
     {
-        Debug.Log("Interact called on: " + gameObject.name); // ADD THIS LINE
-
-        Dialogue tutorialScript = FindObjectOfType<Dialogue>();
-        if (tutorialScript != null && tutorialScript.isActiveAndEnabled)
+        foreach (var choice in choices)
         {
-            tutorialScript.Interact();
+            if (choice.dialogueIndex == activeIndex)
+            {
+                if (choiceIndex == 1 && noChoiceData != null)
+                {
+                    currentDialogue = noChoiceData; 
+                    activeIndex = 0;               
+                }
+                else
+                {
+                    if (choice.nextDialogueIndex == null || choice.nextDialogueIndex.Length <= choiceIndex)
+                    {
+                        Debug.LogError("DIALOGUE ERROR: 'Next Dialogue Index' is missing an entry for choice " + choiceIndex);
+                        EndDialogue();
+                        return;
+                    }
+                    activeIndex = choice.nextDialogueIndex[choiceIndex];
+                }
+
+                if (activeIndex >= 0 && activeIndex < currentDialogue.dialogueLines.Length)
+                {
+                    if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
+                    ClearChoices();
+                    StartCoroutine(TypeLine());
+                }
+                else
+                {
+                    EndDialogue(); 
+                }
+                break;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (choiceContainer.transform.childCount > 0) return;
+
+            if (isDialogueActive || playerInRange)
+            {
+                Interact();
+            }
         }
 
+        if (isDialogueActive && tutorialFinished && choiceContainer.transform.childCount > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) TriggerChoice(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) TriggerChoice(1);
+        }
+    }
+
+    public bool CanInteract() => !isDialogueActive;
+
+    public void Interact()
+    {
         if (!isDialogueActive)
         {
             StartDialogue();
-            return;
         }
-
-        if (isTyping)
+        else if (isTyping)
         {
             CompleteLine();
         }
-        // FIX: Check if the container is null OR if it has 0 children (no buttons)
-        else if (choiceContainer == null || choiceContainer.transform.childCount == 0)
+        else
         {
             NextLine();
         }
@@ -59,33 +135,34 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void TutorialStart()
     {
-        if (dialogueData == null) return;
+        currentDialogue = tutorialFinished ? ErnieBallData : dialogueData;
+        if (currentDialogue == null) return;
 
-        isDialogueActive = true;
-        activeIndex = 0;
-        nameText.SetText(dialogueData.npcName);
-        dialoguePanel.SetActive(true);
-
-        // Hide WASD prompts to focus on dialogue
-        TogglePrompts(false);
-
-        if (PlayerController.Instance != null)
-            PlayerController.Instance.canMove = false;
-
-        StartCoroutine(TypeLine());
+        ExecuteStart();
     }
 
     void StartDialogue()
     {
+        currentDialogue = tutorialFinished ? ErnieBallData : dialogueData;
+        if (currentDialogue == null) return;
+
+        ExecuteStart();
+    }
+
+    private void ExecuteStart()
+    {
         isDialogueActive = true;
+        if (e_1 != null) e_1.SetActive(false);
         activeIndex = 0;
-        nameText.SetText(dialogueData.npcName);
+
+        nameText.SetText(currentDialogue.npcName);
         dialoguePanel.SetActive(true);
+        Panel.SetActive(true);
+        TogglePrompts(true);
 
         if (PlayerController.Instance != null)
             PlayerController.Instance.canMove = false;
 
-        TogglePrompts(false);
         StartCoroutine(TypeLine());
     }
 
@@ -93,22 +170,19 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         isTyping = true;
         dialogueText.text = "";
-        ClearChoices();
-
-        foreach (char letter in dialogueData.dialogueLines[activeIndex])
+        foreach (char letter in currentDialogue.dialogueLines[activeIndex])
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(dialogueData.typingSpeed);
+            yield return new WaitForSeconds(currentDialogue.typingSpeed);
         }
-
         isTyping = false;
-        CheckForChoices();
+        CheckForChoices(); // Trigger choices after typing finishes
     }
 
     void CompleteLine()
     {
         StopAllCoroutines();
-        dialogueText.text = dialogueData.dialogueLines[activeIndex];
+        dialogueText.text = currentDialogue.dialogueLines[activeIndex];
         isTyping = false;
         CheckForChoices();
     }
@@ -116,52 +190,81 @@ public class Dialogue : MonoBehaviour, IInteractable
     void NextLine()
     {
         activeIndex++;
-        if (activeIndex < dialogueData.dialogueLines.Length)
-        {
+        if (activeIndex < currentDialogue.dialogueLines.Length)
             StartCoroutine(TypeLine());
-        }
         else
-        {
             EndDialogue();
-        }
     }
 
     void CheckForChoices()
     {
-        // FIX: Safety check to prevent line 139 crash
-        if (choiceContainer == null || dialogueData.choices == null || dialogueData.choices.Length == 0) return;
-
         ClearChoices();
-        foreach (var choice in dialogueData.choices)
+
+        if (!tutorialFinished) return;
+
+        foreach (var choice in choices)
         {
             if (choice.dialogueIndex == activeIndex)
             {
                 CreateChoices(choice);
+                break;
             }
         }
     }
 
     public void CreateChoices(DialogueChoice choiceData)
     {
-        for (int i = 0; i < choiceData.choiceLabels.Length; i++)
+        ClearChoices();
+
+        if (choiceContainer == null || ChoicesPrefab == null)
+        {
+            Debug.LogError("Dialogue Error: Choice Container or Prefab is missing in the Inspector!");
+            return;
+        }
+
+        for (int i = 0; i < choiceData.choices.Length; i++)
         {
             GameObject btn = Instantiate(ChoicesPrefab, choiceContainer.transform);
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = choiceData.choiceLabels[i];
-            int targetIndex = choiceData.nextDialogueIndexes[i];
 
-            btn.GetComponent<Button>().onClick.AddListener(() => {
-                activeIndex = targetIndex;
-                StartCoroutine(TypeLine());
-            });
+            TMP_Text btnText = btn.GetComponentInChildren<TMP_Text>();
+            if (btnText != null) btnText.text = choiceData.choices[i];
+
+            Button buttonComp = btn.GetComponent<Button>();
+            if (buttonComp == null)
+            {
+                Debug.LogError("DIALOGUE ERROR: Your Choices Prefab is missing a 'Button' component!");
+                continue;
+            }
+
+            int indexForThisButton = i;
+            buttonComp.onClick.AddListener(() => TriggerChoice(indexForThisButton));
         }
+
+        if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(true);
     }
 
     public void EndDialogue()
     {
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
+        Panel.SetActive(false);
+        ClearChoices();
+
+        tutorialFinished = true;
+
         if (PlayerController.Instance != null) PlayerController.Instance.canMove = true;
-        TogglePrompts(true); // Bring prompts back when done
+        dialogueText.text = "";
+        nameText.text = "";
+        TextE.text = "";
+        TextU.text = "";
+        TextD.text = "";
+        TextL.text = "";
+        TextR.text = "";
+        TextSpa.text = "";
+
+        
+    TogglePrompts(false);
+
     }
 
     void ClearChoices()
@@ -170,25 +273,23 @@ public class Dialogue : MonoBehaviour, IInteractable
         foreach (Transform child in choiceContainer.transform) Destroy(child.gameObject);
     }
 
-    void TogglePrompts(bool show)
+    void TogglePrompts(bool hide)
     {
         foreach (GameObject prompt in movementPrompts)
-        {
-            if (prompt != null) prompt.SetActive(show);
-        }
+            if (prompt != null) prompt.SetActive(hide);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) e_1.SetActive(true);
+            playerInRange = true;
+            if (e_1 != null && !isDialogueActive) e_1.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            e_1.SetActive(false);
-            EndDialogue();
-        }
+            playerInRange = false;
+            if (e_1 != null) e_1.SetActive(false);
+            if (isDialogueActive) EndDialogue();
+        
     }
 }

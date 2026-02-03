@@ -65,17 +65,9 @@ public class PlayerController : MonoBehaviour
         m_SwitchAction = InputSystem.actions.FindAction("Interact");
     }
 
-    [Obsolete]
+    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) || (m_SwitchAction != null && m_SwitchAction.WasPressedThisFrame()))
-        {
-            Dialogue tutorialScript = FindObjectOfType<Dialogue>();
-            if (tutorialScript != null && tutorialScript.isActiveAndEnabled)
-            {
-                tutorialScript.Interact();
-            }
-        }
         DetectJump();
         HandleLightSystem();
     }
