@@ -110,8 +110,8 @@ public class Dialogue : MonoBehaviour, IInteractable
 
         if (isDialogueActive && tutorialFinished && choiceContainer.transform.childCount > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) TriggerChoice(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) TriggerChoice(1);
+            if (Input.GetKeyDown(KeyCode.Y)) TriggerChoice(0);
+            if (Input.GetKeyDown(KeyCode.N)) TriggerChoice(1);
         }
     }
 
