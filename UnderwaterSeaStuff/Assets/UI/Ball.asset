@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
-  m_Name: Tutorial
+  m_Name: Ball
   m_EditorClassIdentifier: 
-  npcName: Ernie
+  npcName: Ball
   portrait: {fileID: 0}
   dialogueLines:
-  - Hmm... I wonder where it is?
+  - '"I AM BALL!"'
+  - '"WHO DARES DISTURB MY REST!"'
+  - (Snickering)
+  - (You attempt to pick up the ball... it seems to be weighed down)
+  - '"FEAR MY POWER!"'
   typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5

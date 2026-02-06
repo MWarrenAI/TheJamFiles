@@ -65,9 +65,20 @@ public class PlayerController : MonoBehaviour
         m_SwitchAction = InputSystem.actions.FindAction("Interact");
     }
 
+<<<<<<< HEAD
     
     private void Update()
     {
+=======
+    private void Update()
+    {
+        if (!canMove)
+        {
+            m_NeedToJump = false;
+            m_PlayerLightManager.Darken();
+            return;
+        }    
+>>>>>>> parent of 7ae1c72 (buggy)
         DetectJump();
         HandleLightSystem();
     }

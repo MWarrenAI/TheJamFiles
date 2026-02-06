@@ -7,7 +7,6 @@ public class ChangeScene : MonoBehaviour
 {
     public void MoveToScene(int sceneID)
     {
-        GameState.shouldStartTutorial = true;
         SceneManager.LoadScene(sceneID);
     }
     public void ExitGame()

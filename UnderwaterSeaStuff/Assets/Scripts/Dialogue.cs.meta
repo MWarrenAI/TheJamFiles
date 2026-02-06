@@ -1,18 +1,2 @@
 fileFormatVersion: 2
 guid: 67bc8adafb2ff2b43a4779f2d717920b
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences:
-  - dialogueData: {fileID: 11400000, guid: 7b232c4d8828b0f41953943d02012a08, type: 2}
-  - dialoguePanel: {fileID: 6923864324195865261, guid: 4af4149a92b91784381e1de6684c6d4f, type: 3}
-  - dialogueText: {fileID: 2165463643463310800, guid: 8433198399aa932438e3af0d09e1f099, type: 3}
-  - nameText: {fileID: 2664269021149542392, guid: 3d2ed9c375b911648b3eba63d7f25320, type: 3}
-  - choiceContainer: {fileID: 6923864324195865261, guid: 4af4149a92b91784381e1de6684c6d4f, type: 3}
-  - ChoicesPrefab: {fileID: 2826173764095053141, guid: ad994f54a60435e4cbc905a0b3ea7a77, type: 3}
-  - e_1: {instanceID: 0}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
