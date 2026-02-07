@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +11,10 @@ public class Dialogue : MonoBehaviour, IInteractable
     private NPCDialogue currentDialogue;
     public NPCDialogue dialogueData;      // First interaction data
     public NPCDialogue ErnieBallData;     // Second interaction data
+    public NPCDialogue reminderErnie;
+    public NPCDialogue ErniePlay;
+    public NPCDialogue noPlay;
     public NPCDialogue noChoiceData;
-
 
     private int activeIndex = 0;
     public GameObject dialoguePanel;
@@ -25,6 +28,10 @@ public class Dialogue : MonoBehaviour, IInteractable
     public GameObject choiceContainer;
     public GameObject ChoicesPrefab;
     public GameObject e_1;
+    public GameObject tut1;
+    public GameObject tut2;
+    public GameObject tut3;
+    public GameObject tut4;
     public GameObject[] movementPrompts;
     public GameObject Panel;
     public GameObject keyboardChoiceUI;
@@ -47,14 +54,14 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     void Start()
     {
+        TogglePrompts(true);
         if (e_1 != null) e_1.SetActive(false);
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
         playerInRange = false;
 
-        if (GameState.shouldStartTutorial)
+        if (GameState.shouldStartTutorial && !GameState.tutorialFinished)
         {
-            GameState.shouldStartTutorial = false;
             TutorialStart();
         }
     }
@@ -67,8 +74,14 @@ public class Dialogue : MonoBehaviour, IInteractable
             {
                 if (choiceIndex == 1 && noChoiceData != null)
                 {
-                    currentDialogue = noChoiceData; 
-                    activeIndex = 0;               
+                    currentDialogue = noChoiceData;
+                    GameState.noPlay = true;
+                    activeIndex = 0;
+                    tut1.SetActive(false);
+                    tut2.SetActive(false);
+                    tut3.SetActive(false);
+                    tut4.SetActive(false);
+
                 }
                 else
                 {
@@ -89,7 +102,7 @@ public class Dialogue : MonoBehaviour, IInteractable
                 }
                 else
                 {
-                    EndDialogue(); 
+                    EndDialogue();
                 }
                 break;
             }
@@ -108,7 +121,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             }
         }
 
-        if (isDialogueActive && tutorialFinished && choiceContainer.transform.childCount > 0)
+        if (isDialogueActive && GameState.tutorialFinished && choiceContainer.transform.childCount > 0)
         {
             if (Input.GetKeyDown(KeyCode.Y)) TriggerChoice(0);
             if (Input.GetKeyDown(KeyCode.N)) TriggerChoice(1);
@@ -135,18 +148,47 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void TutorialStart()
     {
-        currentDialogue = tutorialFinished ? ErnieBallData : dialogueData;
-        if (currentDialogue == null) return;
-
-        ExecuteStart();
+        StartDialogue();
     }
 
     void StartDialogue()
     {
-        currentDialogue = tutorialFinished ? ErnieBallData : dialogueData;
-        if (currentDialogue == null) return;
+        Debug.Log($"Tutorial: {GameState.tutorialFinished}, HasBall: {GameState.hasBall}, LostBall: {GameState.lostBall}");
+        if (!GameState.tutorialFinished)
+        {
+            currentDialogue = dialogueData;
+        }
+        else if (GameState.hasBall)
+        {
+            currentDialogue = ReturnBallAndReset();
+        }
+        else if (!GameState.lostBall)
+        {
+            currentDialogue = SetLostBallState();
+        }
+        else
+        {
+            currentDialogue = reminderErnie;
+        }
 
+
+        if (currentDialogue == null) return;
         ExecuteStart();
+    }
+
+    private NPCDialogue SetLostBallState()
+    {
+        GameState.lostBall = true;
+        return ErnieBallData;
+    }
+    public GameObject ballObject;
+    private NPCDialogue ReturnBallAndReset()
+    {
+        GameState.hasBall = false;
+        GameState.lostBall = false;
+        NPCDialogue result = ErniePlay;
+        if (ballObject != null) ballObject.SetActive(true);
+        return result;
     }
 
     private void ExecuteStart()
@@ -158,7 +200,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         nameText.SetText(currentDialogue.npcName);
         dialoguePanel.SetActive(true);
         Panel.SetActive(true);
-        TogglePrompts(true);
 
         if (PlayerController.Instance != null)
             PlayerController.Instance.canMove = false;
@@ -199,8 +240,6 @@ public class Dialogue : MonoBehaviour, IInteractable
     void CheckForChoices()
     {
         ClearChoices();
-
-        if (!tutorialFinished) return;
 
         foreach (var choice in choices)
         {
@@ -248,9 +287,14 @@ public class Dialogue : MonoBehaviour, IInteractable
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
         Panel.SetActive(false);
+        TogglePrompts(false);
         ClearChoices();
 
-        tutorialFinished = true;
+
+        if (currentDialogue == dialogueData)
+        {
+            GameState.tutorialFinished = true;
+        }
 
         if (PlayerController.Instance != null) PlayerController.Instance.canMove = true;
         dialogueText.text = "";
@@ -262,8 +306,10 @@ public class Dialogue : MonoBehaviour, IInteractable
         TextR.text = "";
         TextSpa.text = "";
 
-        
-    TogglePrompts(false);
+        if (playerInRange)
+        {
+            if (e_1 != null) e_1.SetActive(true);
+        }
 
     }
 
