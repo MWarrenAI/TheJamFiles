@@ -12,9 +12,6 @@ public class BallScript : MonoBehaviour
 
     void Update()
     {
-        // 1. CONSTANT CHECK FOR PROMPT VISIBILITY
-        // If you are in range and the ball is lost, show E2. 
-        // Otherwise (or if you already picked it up), hide it.
         if (e_2 != null)
         {
             bool shouldShow = playerInRange && GameState.lostBall;
@@ -24,7 +21,6 @@ public class BallScript : MonoBehaviour
             }
         }
 
-        // 2. PICKUP LOGIC
         if (playerInRange && GameState.lostBall && Input.GetKeyDown(KeyCode.E))
         {
             PickUp();
