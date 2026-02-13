@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
+  m_Name: Path_2a_Data
+  m_EditorClassIdentifier: 
+  npcName: Ernie
+  portrait: {fileID: 0}
+  dialogueLines:
+  - '"Y-yes, the trenches! My apologies for mistaking your abilities! However, I''m
+    afraid I can''t tell you much at all..." '
+  - '"I can point you to the twilight zone, but not even my friends deep in the abyss
+    know how to bypass the security there..." '
+  - '"Why do you want to go to such a volatile place, anyway?"'
+  typingSpeed: 0.05
+  autoProgressLines: 
+  autoProgressDelay: 1.5

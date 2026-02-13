@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
+  m_Name: Path_1a_Data
+  m_EditorClassIdentifier: 
+  npcName: Ernie
+  portrait: {fileID: 0}
+  dialogueLines:
+  - '"Wait... you don''t seem familiar to these parts of the twilight zone. I should
+    know, since this road is my assigned post..."'
+  - '"! ! !"'
+  - '"What a curious encounter..."'
+  - '"You appear out of nothing, then ask if I know the way to a place so highly
+    fortified..."'
+  - '"Do you have a name, at least, traveller? A two-way chat is quite hard without
+    one, you know..."'
+  typingSpeed: 0.05
+  autoProgressLines: 
+  autoProgressDelay: 1.5
