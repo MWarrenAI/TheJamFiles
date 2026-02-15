@@ -3,33 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+<<<<<<< HEAD
 
 //This script is intended for the tutorial portion of dialogue
 
+=======
+>>>>>>> parent of c1b25a7 (backup)
 public class Dialogue : MonoBehaviour, IInteractable
 {
     [Header("Dialogue Data")]
     private NPCDialogue currentDialogue;
-    public NPCDialogue dialogueData;  // First interaction data
-    public NPCDialogue ErnieBallData; // Second interaction data
-    public NPCDialogue reminderErnie; // This gets triggered after they promise to get them Ernie's ball
-    public NPCDialogue ErniePlay;     // This triggers Ernie throwing the ball
-    public NPCDialogue noPlay;        // This triggers Ernie resigning ball play  
-    public NPCDialogue noChoiceData;  // This triggers the same dialogue as no play - I think I added this because I wasn't sure how the logic was flowing and I wanted to avoid mistakes
+    public NPCDialogue dialogueData;      // First interaction data
+    public NPCDialogue ErnieBallData;     // Second interaction data
+    public NPCDialogue reminderErnie;
+    public NPCDialogue ErniePlay;
+    public NPCDialogue noPlay;
+    public NPCDialogue noChoiceData;
 
-    private int activeIndex = 0; //This is what line they are on
-    public GameObject dialoguePanel; //This contains where the dialogue goes
-    public TMP_Text dialogueText, nameText; //Here's the text that appears on the dialogue panel
-    private bool tutorialFinished = false; //This allows for freeroam after the tutorial is finished (the walls disappear)
+    private int activeIndex = 0;
+    public GameObject dialoguePanel;
+    public TMP_Text dialogueText, nameText;
+    private bool tutorialFinished = false;
 
-    private bool playerInRange; //This bool is a variable that gets set to true when the player is in range of the object
-    private bool isTyping, isDialogueActive; //These bools are required for the typing animations and checking if the dialogue window is active
+    private bool playerInRange;
+    private bool isTyping, isDialogueActive;
 
     [Header("UI References")]
+<<<<<<< HEAD
     public GameObject choiceContainer; //This contains the Prefab
     public GameObject ChoicesPrefab; //This contains the buttons
     public GameObject e_1; //ernie's e prompt
@@ -52,23 +55,43 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public GameObject tut_Panel; //tutorial panel
     public GameObject erbie; //ernie's twin!
+=======
+    public GameObject choiceContainer;
+    public GameObject ChoicesPrefab;
+    public GameObject e_1;
+    public GameObject tut1;
+    public GameObject tut2;
+    public GameObject tut3;
+    public GameObject tut4;
+    public GameObject[] movementPrompts;
+    public GameObject Panel;
+    public GameObject keyboardChoiceUI;
+    public TMP_Text TextE;
+    public TMP_Text TextU;
+    public TMP_Text TextD;
+    public TMP_Text TextL;
+    public TMP_Text TextR;
+    public TMP_Text TextSpa;
+    // This list will appear in the NPC Inspector in Unity
+    public DialogueChoice[] choices;
+>>>>>>> parent of c1b25a7 (backup)
 
     [System.Serializable]
     public class DialogueChoice
     {
-        public int dialogueIndex; // This is which line they are on currently.
-        public string[] choices; // The yes/no or 1, 2, 3 options.
-        public int[] nextDialogueIndex; // Where the script jumps to (line 1, line 2, line 3...)
+        public int dialogueIndex;
+        public string[] choices; // Labels like "Yes", "No"
+        public int[] nextDialogueIndex; // Where they jump to
     }
 
     void Start()
     {
-        //This shows the keyboard instructions when they initially start the conversation (this serves as a instructions tutorial)
-        //This also hides the e prompt and checks and makes sure the dialogue panel and choices panel are both inactive
-        //We also want to make sure the player is by default not in range as ernie is not nearby
         TogglePrompts(true);
+<<<<<<< HEAD
         tut_Panel.SetActive(false);
         e_5.SetActive(false);
+=======
+>>>>>>> parent of c1b25a7 (backup)
         if (e_1 != null) e_1.SetActive(false);
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
@@ -76,7 +99,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         erbie.SetActive(false);
         isDialogueActive = false;
 
-        //This then triggers the tutorial only after they start this script - this therefore makes sure it only triggers once which is great for tutorials.
         if (GameState.shouldStartTutorial && !GameState.tutorialFinished)
         {
             TutorialStart();
@@ -85,7 +107,6 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     private void TriggerChoice(int choiceIndex)
     {
-        //this handles are logic for when they pick the no choice - removing all the walls, we do want them to repeat it as it is both amusing and teaches them about interaction with objects.
         foreach (var choice in choices)
         {
             if (choice.dialogueIndex == activeIndex)
@@ -103,7 +124,6 @@ public class Dialogue : MonoBehaviour, IInteractable
                 }
                 else
                 {
-                    //This is a null handle just in case I forget to add an index
                     if (choice.nextDialogueIndex == null || choice.nextDialogueIndex.Length <= choiceIndex)
                     {
                         Debug.LogError("DIALOGUE ERROR: 'Next Dialogue Index' is missing an entry for choice " + choiceIndex);
@@ -113,14 +133,12 @@ public class Dialogue : MonoBehaviour, IInteractable
                     activeIndex = choice.nextDialogueIndex[choiceIndex];
                 }
 
-                //This clears the choices after they are made
                 if (activeIndex >= 0 && activeIndex < currentDialogue.dialogueLines.Length)
                 {
                     if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
                     ClearChoices();
                     StartCoroutine(TypeLine());
                 }
-                //Self explanatory - ends the dialogue
                 else
                 {
                     EndDialogue();
@@ -132,7 +150,6 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     void Update()
     {
-        //This handles the logic for when the user presses e 
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (choiceContainer.transform.childCount > 0)
@@ -140,26 +157,23 @@ public class Dialogue : MonoBehaviour, IInteractable
                 return;
             }
 
-            //if the dialogue is active and the player is in range they can therefore interact
             if (isDialogueActive || playerInRange)
             {
                 Interact();
-
             }
         }
-        if (isDialogueActive && choiceContainer.transform.childCount > 0)
+
+        if (isDialogueActive && GameState.tutorialFinished && choiceContainer.transform.childCount > 0)
         {
             if (Input.GetKeyDown(KeyCode.Y)) TriggerChoice(0);
             if (Input.GetKeyDown(KeyCode.N)) TriggerChoice(1);
         }
     }
-    
 
     public bool CanInteract() => !isDialogueActive;
 
     public void Interact()
     {
-        //This triggers the dialogue and keeps the dialogue animated whilst it is being generated, if there is no more text it goes onto the next line.
         if (!isDialogueActive)
         {
             StartDialogue();
@@ -174,14 +188,11 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //this is what is triggered only after the tutorial is started.
     public void TutorialStart()
     {
         StartDialogue();
     }
 
-    //because there was a lot that could go wrong here I included a debug that tells me if the player either has the ball or ernie has lost the ball.
-    //certain states trigger certain dialogues - this is how all my script logic flows perfectly.
     void StartDialogue()
     {
         Debug.Log($"Tutorial: {GameState.tutorialFinished}, HasBall: {GameState.hasBall}, LostBall: {GameState.lostBall}");
@@ -207,15 +218,12 @@ public class Dialogue : MonoBehaviour, IInteractable
         ExecuteStart();
     }
 
-    //this sets state to lostball and returns the dialogue object ErnieBallData
     private NPCDialogue SetLostBallState()
     {
         GameState.lostBall = true;
         return ErnieBallData;
     }
     public GameObject ballObject;
-    
-    //this resets states and returns the dialogue object ErniePlay therefore restoring the ball to it's original position (troll face)
     private NPCDialogue ReturnBallAndReset()
     {
         GameState.hasBall = false;
@@ -225,9 +233,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         return result;
     }
 
-    //this prevents the player from moving whilst the dialogue is active it handles simple logic like
-    //whether the e prompt is active (usually it's not during dialogue) and activates the panel and dialogue panel for interaction
-    //this also starts the typing animation
     private void ExecuteStart()
     {
         isDialogueActive = true;
@@ -244,7 +249,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         StartCoroutine(TypeLine());
     }
 
-    //This types each letter of every line for dialogue like a typewriter would "appearing animated"
     IEnumerator TypeLine()
     {
         isTyping = true;
@@ -258,7 +262,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         CheckForChoices(); // Trigger choices after typing finishes
     }
 
-    //This handles the logic after the text is finished - whether or not there are choices
     void CompleteLine()
     {
         StopAllCoroutines();
@@ -267,7 +270,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         CheckForChoices();
     }
 
-    //This checks if there is more dialogue to generate
     void NextLine()
     {
         activeIndex++;
@@ -281,7 +283,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //This checks for choices
     void CheckForChoices()
     {
         ClearChoices();
@@ -296,7 +297,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //this generates the options for dialogue
     public void CreateChoices(DialogueChoice choiceData)
     {
         ClearChoices();
@@ -312,10 +312,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             GameObject btn = Instantiate(ChoicesPrefab, choiceContainer.transform);
 
             TMP_Text btnText = btn.GetComponentInChildren<TMP_Text>();
-            if (btnText != null)
-            {
-                    btnText.text = choiceData.choices[i];
-            }
+            if (btnText != null) btnText.text = choiceData.choices[i];
 
             Button buttonComp = btn.GetComponent<Button>();
             if (buttonComp == null)
@@ -331,7 +328,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(true);
     }
 
-    //this ensures no unnecessary panels/text remain after dialogue and executes the revised script only after the noplay dialogue
     public void EndDialogue()
     {
         isDialogueActive = false;
@@ -371,7 +367,6 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     }
 
-    //this clears the choices from the prompt menu
     void ClearChoices()
     {
         if (choiceContainer == null)
@@ -384,7 +379,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //This shows the buttons for the instructions (there were a lot of them so I put them in an array)
     void TogglePrompts(bool hide)
     {
         foreach (GameObject prompt in movementPrompts)
@@ -396,7 +390,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //this shows the e button above ernie!
     private void OnTriggerEnter2D(Collider2D other)
     {
         playerInRange = true;
@@ -407,7 +400,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
-    //this hides the e button above ernie!
     private void OnTriggerExit2D(Collider2D other)
     {
         playerInRange = false;
