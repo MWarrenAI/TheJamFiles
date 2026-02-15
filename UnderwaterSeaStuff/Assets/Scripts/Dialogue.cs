@@ -7,9 +7,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 //This script is intended for the tutorial portion of dialogue
 
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
 public class Dialogue : MonoBehaviour, IInteractable
@@ -32,6 +35,7 @@ public class Dialogue : MonoBehaviour, IInteractable
     private bool isTyping, isDialogueActive;
 
     [Header("UI References")]
+<<<<<<< HEAD
 <<<<<<< HEAD
     public GameObject choiceContainer; //This contains the Prefab
     public GameObject ChoicesPrefab; //This contains the buttons
@@ -75,6 +79,26 @@ public class Dialogue : MonoBehaviour, IInteractable
     // This list will appear in the NPC Inspector in Unity
     public DialogueChoice[] choices;
 >>>>>>> parent of c1b25a7 (backup)
+=======
+    public GameObject choiceContainer;
+    public GameObject ChoicesPrefab;
+    public GameObject e_1;
+    public GameObject tut1;
+    public GameObject tut2;
+    public GameObject tut3;
+    public GameObject tut4;
+    public GameObject[] movementPrompts;
+    public GameObject Panel;
+    public GameObject keyboardChoiceUI;
+    public TMP_Text TextE;
+    public TMP_Text TextU;
+    public TMP_Text TextD;
+    public TMP_Text TextL;
+    public TMP_Text TextR;
+    public TMP_Text TextSpa;
+    // This list will appear in the NPC Inspector in Unity
+    public DialogueChoice[] choices;
+>>>>>>> parent of c1b25a7 (backup)
 
     [System.Serializable]
     public class DialogueChoice
@@ -88,8 +112,11 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         TogglePrompts(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
         tut_Panel.SetActive(false);
         e_5.SetActive(false);
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
         if (e_1 != null) e_1.SetActive(false);

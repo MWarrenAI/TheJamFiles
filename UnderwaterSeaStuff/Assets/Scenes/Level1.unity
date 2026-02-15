@@ -299,6 +299,7 @@ BoxCollider2D:
   m_Size: {x: 17, y: 22.5}
   m_EdgeRadius: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &16512284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +326,8 @@ MonoBehaviour:
     - Y- ...
     - N- Hello!
     nextDialogueIndex: 02000000
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
 --- !u!1 &17805314
@@ -1258,8 +1261,11 @@ MonoBehaviour:
     - N - No
     nextDialogueIndex: 03000000
 <<<<<<< HEAD
+<<<<<<< HEAD
   tut_Panel: {fileID: 1133068566}
   erbie: {fileID: 1365877605}
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
   ballObject: {fileID: 1802797835}
@@ -5150,7 +5156,10 @@ SpriteRenderer:
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of c1b25a7 (backup)
 --- !u!1 &1071705662
 GameObject:
   m_ObjectHideFlags: 0
@@ -5253,6 +5262,9 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+<<<<<<< HEAD
+>>>>>>> parent of c1b25a7 (backup)
+=======
 >>>>>>> parent of c1b25a7 (backup)
 --- !u!114 &1091795052 stripped
 MonoBehaviour:
@@ -5353,11 +5365,14 @@ SpriteRenderer:
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1133068566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6082860421884003734, guid: 935dc92f0c4abbb4fa52c55ae8750228, type: 3}
   m_PrefabInstance: {fileID: 4788963459287984220}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
 --- !u!1 &1163024350
@@ -10405,6 +10420,7 @@ GameObject:
   m_PrefabInstance: {fileID: 884236617835222482}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &4788963459287984220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10521,6 +10537,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: d1648e06e0f5e734bb7bf45955509e80, type: 3}
 =======
 >>>>>>> parent of c1b25a7 (backup)
+=======
+>>>>>>> parent of c1b25a7 (backup)
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10568,6 +10586,9 @@ SceneRoots:
   - {fileID: 1945338432}
   - {fileID: 152338282}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 4788963459287984220}
+=======
+>>>>>>> parent of c1b25a7 (backup)
 =======
 >>>>>>> parent of c1b25a7 (backup)
