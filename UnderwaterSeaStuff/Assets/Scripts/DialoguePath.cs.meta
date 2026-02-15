@@ -18,8 +18,8 @@ MonoImporter:
   - dialoguePanel: {fileID: 6923864324195865261, guid: 4af4149a92b91784381e1de6684c6d4f, type: 3}
   - dialogueText: {instanceID: 0}
   - nameText: {instanceID: 0}
-  - choiceContainer: {instanceID: 0}
-  - choicePrefab: {instanceID: 0}
+  - choiceContainer: {fileID: 921465314942051598, guid: 951787bf4f40b8149b00d4247bcd394e, type: 3}
+  - choicePrefab: {fileID: 1710939345624186836, guid: 5bb799caf2a6253428b63656860a2301, type: 3}
   - interactionPrompt: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

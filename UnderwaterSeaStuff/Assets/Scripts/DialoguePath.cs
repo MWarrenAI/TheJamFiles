@@ -14,7 +14,7 @@ public class DialoguePath : MonoBehaviour, IInteractable
     public NPCDialogue Path_1a_Data; // "W-wait!! At least, before you go..."
     public NPCDialogue EfIntro; //"...I'm Ef..."
     public NPCDialogue Path_1a_Part2; //"Slow Down!"
-    public NPCDialogue LightTut;// "I've been in the darkness before..."
+    public NPCDialogue LightTut; // "I've been in the darkness before..."
     public NPCDialogue ErnieCompliment; //"Pretty"
     public NPCDialogue Path_2a_Data; //"Yes the trenches..."
     public NPCDialogue EfAnnoyed; //"If you don't know..."
@@ -43,11 +43,16 @@ public class DialoguePath : MonoBehaviour, IInteractable
     private int activeIndex = 0;
     private bool isTyping, isDialogueActive, playerInRange;
 
-    void Start()
+    public void TriggerPath()
+    {
+        StartDialogue();
+    }
+    public void Start()
     {
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (interactionPrompt) interactionPrompt.SetActive(false);
         playerInRange = false;
+        isDialogueActive = false;
     }
 
     void Update()
@@ -235,7 +240,6 @@ public class DialoguePath : MonoBehaviour, IInteractable
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
         ClearChoices();
-
 
         if (currentDialogue == dialogueData)
         {

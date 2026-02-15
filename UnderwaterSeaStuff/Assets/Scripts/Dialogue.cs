@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -5,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 //This script is intended for the tutorial portion of dialogue
 
@@ -30,7 +32,8 @@ public class Dialogue : MonoBehaviour, IInteractable
     [Header("UI References")]
     public GameObject choiceContainer; //This contains the Prefab
     public GameObject ChoicesPrefab; //This contains the buttons
-    public GameObject e_1; //the e prompt
+    public GameObject e_1; //ernie's e prompt
+    public GameObject e_5; //erbie's e prompt
     public GameObject tut1; //The barrier blocking the player
     public GameObject tut2; //The barrier blocking the player
     public GameObject tut3; //The barrier blocking the player
@@ -48,6 +51,7 @@ public class Dialogue : MonoBehaviour, IInteractable
     public DialogueChoice[] choices; //this stores all the player choices have in an array
 
     public GameObject tut_Panel; //tutorial panel
+    public GameObject erbie; //ernie's twin!
 
     [System.Serializable]
     public class DialogueChoice
@@ -64,10 +68,13 @@ public class Dialogue : MonoBehaviour, IInteractable
         //We also want to make sure the player is by default not in range as ernie is not nearby
         TogglePrompts(true);
         tut_Panel.SetActive(false);
+        e_5.SetActive(false);
         if (e_1 != null) e_1.SetActive(false);
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
         playerInRange = false;
+        erbie.SetActive(false);
+        isDialogueActive = false;
 
         //This then triggers the tutorial only after they start this script - this therefore makes sure it only triggers once which is great for tutorials.
         if (GameState.shouldStartTutorial && !GameState.tutorialFinished)
@@ -128,7 +135,10 @@ public class Dialogue : MonoBehaviour, IInteractable
         //This handles the logic for when the user presses e 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (choiceContainer.transform.childCount > 0) return;
+            if (choiceContainer.transform.childCount > 0)
+            {
+                return;
+            }
 
             //if the dialogue is active and the player is in range they can therefore interact
             if (isDialogueActive || playerInRange)
@@ -262,9 +272,13 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         activeIndex++;
         if (activeIndex < currentDialogue.dialogueLines.Length)
+        {
             StartCoroutine(TypeLine());
+        }
         else
+        {
             EndDialogue();
+        }
     }
 
     //This checks for choices
@@ -332,15 +346,23 @@ public class Dialogue : MonoBehaviour, IInteractable
             GameState.tutorialFinished = true;
         }
 
+        if (currentDialogue == noPlay)
+        {
+            erbie.SetActive(true);
+        }    
+
         if (PlayerController.Instance != null) PlayerController.Instance.canMove = true;
-        dialogueText.text = "";
-        nameText.text = "";
-        TextE.text = "";
-        TextU.text = "";
-        TextD.text = "";
-        TextL.text = "";
-        TextR.text = "";
-        TextSpa.text = "";
+        {
+            dialogueText.text = "";
+            nameText.text = "";
+            TextE.text = "";
+            TextU.text = "";
+            TextD.text = "";
+            TextL.text = "";
+            TextR.text = "";
+            TextSpa.text = "";
+        }
+        
 
         if (playerInRange)
         {
@@ -352,30 +374,52 @@ public class Dialogue : MonoBehaviour, IInteractable
     //this clears the choices from the prompt menu
     void ClearChoices()
     {
-        if (choiceContainer == null) return;
-        foreach (Transform child in choiceContainer.transform) Destroy(child.gameObject);
+        if (choiceContainer == null)
+        {
+            return;
+        }
+        foreach (Transform child in choiceContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     //This shows the buttons for the instructions (there were a lot of them so I put them in an array)
     void TogglePrompts(bool hide)
     {
         foreach (GameObject prompt in movementPrompts)
-            if (prompt != null) prompt.SetActive(hide);
+        {
+            if (prompt != null)
+            {
+                prompt.SetActive(hide);
+            }
+        }
     }
 
     //this shows the e button above ernie!
     private void OnTriggerEnter2D(Collider2D other)
     {
-            playerInRange = true;
-            if (e_1 != null && !isDialogueActive) e_1.SetActive(true);
+        playerInRange = true;
+
+        if (e_1 != null && !isDialogueActive)
+        {
+            e_1.SetActive(true);
+        }
     }
 
     //this hides the e button above ernie!
     private void OnTriggerExit2D(Collider2D other)
     {
-            playerInRange = false;
-            if (e_1 != null) e_1.SetActive(false);
-            if (isDialogueActive) EndDialogue();
+        playerInRange = false;
+
+        if (e_1 != null)
+        {
+            e_1.SetActive(false);
+        }
+        if (isDialogueActive)
+        {
+            EndDialogue();
+        }
         
     }
 }
