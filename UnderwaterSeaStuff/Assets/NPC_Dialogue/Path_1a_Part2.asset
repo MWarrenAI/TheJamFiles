@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
-  m_Name: Path_1b_Data
+  m_Name: Path_1a_Part2
   m_EditorClassIdentifier: 
   npcName: Ernie
   portrait: {fileID: 0}
   dialogueLines:
-  - '"W-wait!! At least, before you go... are you seeking an audience with the queen?"'
-  - (Ernie eyes glare down Ef giving her pause)
-  - '"If you are seeking to end her tyranny... you have my support."'
+  - '"S-slow down! The pathway ahead is much darker than you could possibly imagine!"'
+  - '"Ef was it? Hear out a little lantern please?"'
+  - '"Look I made a pretty picture on the rock!"'
   typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5

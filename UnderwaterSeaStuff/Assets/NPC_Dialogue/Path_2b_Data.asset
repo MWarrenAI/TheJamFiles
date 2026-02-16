@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
   m_Name: Path_2b_Data
   m_EditorClassIdentifier: 
-  npcName: Erbie
+  npcName: Ernie
   portrait: {fileID: 0}
   dialogueLines:
-  - (Erbie's eyes look to the floor dejected, Ernie just seems to be bouncing his
-    ball and down not paying attention)
+  - (Ernie's eyes look to the floor dejected)
   typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5

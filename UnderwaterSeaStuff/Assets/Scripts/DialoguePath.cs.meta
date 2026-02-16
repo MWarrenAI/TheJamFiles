@@ -1,28 +1,2 @@
 fileFormatVersion: 2
-guid: c0e1f7ce43500134c99f8612c04763c9
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences:
-  - dialogueData: {fileID: 11400000, guid: ad753dff658a1b74592fc315fd0ecc2c, type: 2}
-  - noResponse: {instanceID: 0}
-  - Path_1a_Data: {fileID: 11400000, guid: ad753dff658a1b74592fc315fd0ecc2c, type: 2}
-  - EfIntro: {fileID: 11400000, guid: 211edfc05c7345e42bcd43cce78f598f, type: 2}
-  - Path_1a_Part2: {fileID: 11400000, guid: 7c3662efb5aaf63488cc37ed4a92c023, type: 2}
-  - LightTut: {fileID: 11400000, guid: 02c6a717a3674ac43a5f25961382ad6b, type: 2}
-  - ErnieCompliment: {fileID: 11400000, guid: 11c950db2435c6243b83d3e5a6f43ea8, type: 2}
-  - Path_2a_Data: {fileID: 11400000, guid: 679e89a37c901174bba3d6c11f8e527f, type: 2}
-  - EfAnnoyed: {fileID: 11400000, guid: 6f99a4919911f584da87a446c8bdf7bf, type: 2}
-  - Path_1b_Data: {fileID: 11400000, guid: 46d213915121fd24a95d4c5144011647, type: 2}
-  - tut_Panel: {fileID: 6082860421884003734, guid: 935dc92f0c4abbb4fa52c55ae8750228, type: 3}
-  - dialoguePanel: {fileID: 6923864324195865261, guid: 4af4149a92b91784381e1de6684c6d4f, type: 3}
-  - dialogueText: {instanceID: 0}
-  - nameText: {instanceID: 0}
-  - choiceContainer: {fileID: 921465314942051598, guid: 951787bf4f40b8149b00d4247bcd394e, type: 3}
-  - choicePrefab: {fileID: 1710939345624186836, guid: 5bb799caf2a6253428b63656860a2301, type: 3}
-  - interactionPrompt: {instanceID: 0}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+guid: 78f864ef965a14f4fa691f6b7dc74ce0

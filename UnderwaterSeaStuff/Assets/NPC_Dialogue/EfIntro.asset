@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c79f9ccffa15c4aa4cbe5dd0f991d8, type: 3}
-  m_Name: Path_1b_Data
+  m_Name: EfIntro
   m_EditorClassIdentifier: 
-  npcName: Ernie
+  npcName: Ef
   portrait: {fileID: 0}
   dialogueLines:
-  - '"W-wait!! At least, before you go... are you seeking an audience with the queen?"'
-  - (Ernie eyes glare down Ef giving her pause)
-  - '"If you are seeking to end her tyranny... you have my support."'
+  - '"...Ef. And I have no time for two-way chat. I must reach the trenches."'
+  - (Ef tries to move forward)
   typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5
