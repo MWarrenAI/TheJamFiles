@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Code to be revised to fix logic problems post mortem, this is the most complicated version of the quest dialog system useful for tutorials
+
 public class DialoguePath : MonoBehaviour, IInteractable
 {
     [Header("Dialogue Data")]

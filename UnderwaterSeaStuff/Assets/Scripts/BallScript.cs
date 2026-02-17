@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
+    //simple behaviour prompts for various object in scene useful for quest items.
     public GameObject e_2;
     private bool playerInRange;
 
@@ -31,6 +32,7 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    //hides the e prompt, changes the game state and hides the ball
     void PickUp()
     {
         GameState.hasBall = true;
@@ -39,6 +41,7 @@ public class BallScript : MonoBehaviour
         Debug.Log("Ball Picked Up!");
     }
 
+    //This is used to check if the player specifically collided with the object (entering)
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -47,6 +50,7 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    //This is used to check if the player specifically collided with the object (exiting)
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

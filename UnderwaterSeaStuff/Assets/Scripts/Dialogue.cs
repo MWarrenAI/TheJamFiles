@@ -60,6 +60,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         public int[] nextDialogueIndex; // Where they jump to
     }
 
+    //hides the various prompts and keeps their twin hidden for now
     void Start()
     {
         TogglePrompts(true);
@@ -72,12 +73,14 @@ public class Dialogue : MonoBehaviour, IInteractable
         erbie.SetActive(false);
         isDialogueActive = false;
 
+        //Triggers the tutorial for flavour text on script load.
         if (GameState.shouldStartTutorial && !GameState.tutorialFinished)
         {
             TutorialStart();
         }
     }
 
+    //handles the logic for changing the gamestate and deactivating the walls so the player can freeroam
     private void TriggerChoice(int choiceIndex)
     {
         foreach (var choice in choices)
@@ -106,6 +109,7 @@ public class Dialogue : MonoBehaviour, IInteractable
                     activeIndex = choice.nextDialogueIndex[choiceIndex];
                 }
 
+                //Choice dialogue logic
                 if (activeIndex >= 0 && activeIndex < currentDialogue.dialogueLines.Length)
                 {
                     if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
@@ -123,6 +127,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     void Update()
     {
+        //handles interaction logic and keydown for e
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (choiceContainer.transform.childCount > 0)
@@ -136,6 +141,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             }
         }
 
+        //handles yes no options for y n keybindings
         if (isDialogueActive && GameState.tutorialFinished && choiceContainer.transform.childCount > 0)
         {
             if (Input.GetKeyDown(KeyCode.Y)) TriggerChoice(0);
@@ -145,6 +151,8 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public bool CanInteract() => !isDialogueActive;
 
+    //ensures the interaction logic flows smoothly - so animation can be played, text can be skipped to allow users to interact better with the speed of the dialog
+    //next line of the dialog follows, etc.
     public void Interact()
     {
         if (!isDialogueActive)
@@ -161,11 +169,13 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
+    //Ensures the right command is triggered
     public void TutorialStart()
     {
         StartDialogue();
     }
 
+    //handles some of the tutorial logic and includes a debug that doesn't appear in-game so it's fine. Gamestates can switch and different dialogue objects can be loaded.
     void StartDialogue()
     {
         Debug.Log($"Tutorial: {GameState.tutorialFinished}, HasBall: {GameState.hasBall}, LostBall: {GameState.lostBall}");
@@ -191,12 +201,15 @@ public class Dialogue : MonoBehaviour, IInteractable
         ExecuteStart();
     }
 
+    //sets the ball be lost state
     private NPCDialogue SetLostBallState()
     {
         GameState.lostBall = true;
         return ErnieBallData;
     }
     public GameObject ballObject;
+
+    //this returns the ball to it's previous state and makes it visible again
     private NPCDialogue ReturnBallAndReset()
     {
         GameState.hasBall = false;
@@ -206,6 +219,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         return result;
     }
 
+    //this handles some of the dialog logic hiding e promps, showing panels, and ensuring the animation works for the dialog
     private void ExecuteStart()
     {
         isDialogueActive = true;
@@ -222,6 +236,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         StartCoroutine(TypeLine());
     }
 
+    //this handles the dialog animation itself
     IEnumerator TypeLine()
     {
         isTyping = true;
@@ -235,6 +250,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         CheckForChoices(); // Trigger choices after typing finishes
     }
 
+    //this stops the dialog animation by skipping to complete the dialog text generated
     void CompleteLine()
     {
         StopAllCoroutines();
@@ -243,6 +259,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         CheckForChoices();
     }
 
+    //moves onto the next sequence in the dialog script
     void NextLine()
     {
         activeIndex++;
@@ -256,6 +273,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
+    //creates choices for user prompts
     void CheckForChoices()
     {
         ClearChoices();
@@ -270,6 +288,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
+    //Create choices logic, hides various objects, makes various objects visible and instantiates the button so that it can be displayed
     public void CreateChoices(DialogueChoice choiceData)
     {
         ClearChoices();
@@ -304,6 +323,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(true);
     }
 
+    //hides everything that need not be there and after they are done with the tutorial erbie appears.
     public void EndDialogue()
     {
         isDialogueActive = false;
@@ -343,6 +363,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     }
 
+    //clears the choices from the prefab
     void ClearChoices()
     {
         if (choiceContainer == null)
@@ -356,6 +377,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         if (keyboardChoiceUI != null) keyboardChoiceUI.SetActive(false);
     }
 
+    //hides the prompt images (not the text)
     void TogglePrompts(bool hide)
     {
         foreach (GameObject prompt in movementPrompts)
@@ -367,6 +389,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
+    //shows e prompt when inside the collider
     private void OnTriggerEnter2D(Collider2D other)
     {
         playerInRange = true;
@@ -377,6 +400,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
     }
 
+    //hides e prompt when outside the collider
     private void OnTriggerExit2D(Collider2D other)
     {
         playerInRange = false;

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//stores all the bools needed for various gamestates
 public static class GameState
 {
     public static bool shouldStartTutorial = false;

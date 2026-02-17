@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Simple Y N choice dialog version for Lost child.
+
 public class Dialogue2 : MonoBehaviour, IInteractable
 {
     [Header("Dialogue Data")]
